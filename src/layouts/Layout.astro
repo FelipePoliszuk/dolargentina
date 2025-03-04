@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Main from '../components/Main.astro';
+import '@fontsource-variable/onest';
+import Footer from '../components/Footer.astro';
 ---
 
 
@@ -12,13 +16,14 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>Dolargentina</title>
 	</head>
-	<body>
-		<slot />
+	<body class="flex flex-col min-h-screen bg-amber-100">
+		<Header/>
+		<Main/>
+		<Footer/>
 	</body>
 </html>
 
-<style>
-	html{
-		font-family: system, sans-serif;
-	}
+<style is:global>
+
+
 </style>

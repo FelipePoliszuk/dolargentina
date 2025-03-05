@@ -10,7 +10,7 @@ const { title, idCompra, idVenta } = Astro.props;
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-down" class="lucide lucide-arrow-down h-4 w-4 text-green-600"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
           <span>Compra</span>
         </div>
-        <div id={idCompra} class="text-black mt-2 text-2xl font-bold">$ --</div>
+        <div id={idCompra} class="text-black mt-2 lg:text-2xl text-xl font-bold">$ --</div>
       </div>
       
       <div class="rounded-md bg-white p-4 shadow-lg">
@@ -18,7 +18,7 @@ const { title, idCompra, idVenta } = Astro.props;
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up" class="lucide lucide-arrow-up h-4 w-4 text-red-600"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg>
           <span>Venta</span>
         </div>
-        <div id={idVenta} class="text-black mt-2 text-2xl font-bold">$ --</div>
+        <div id={idVenta} class="text-black mt-2 lg:text-2xl text-xl font-bold">$ --</div>
       </div>
     </div>
   </div>

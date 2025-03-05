@@ -8,3 +8,7 @@
   body{
     background: #d4d6d6;
 }
+
+.filter-white {
+  filter: brightness(0) invert(1);
+}

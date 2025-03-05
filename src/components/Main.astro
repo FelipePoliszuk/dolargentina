@@ -1,26 +1,17 @@
 ---
 import Card from "./Card.astro"
+import DolarAPI from "../DolarAPI.astro"
 ---
+
+<DolarAPI/>
 
 <main class="container mx-auto px-4 py-8 flex-1 flex-col">
   <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" id="exchange-rates-container">
-    <Card title="Dólar Oficial">
-    </Dolar>
-    <Card title="Dólar Blue">
-    </Card>
-    <Card title="Dólar MEP">
-    </Card>
-    <Card title="Dólar Tarjeta">
-    </Card>
-    <Card title="Dólar Cripto">
-    </Card>
-    <Card title="Dólar Mayorista">
-    </Card>
-    <Card title="Dólar Minorista">
-    </Card>    
-    <Card title="Dólar Turista">
-    </Card>
-    <Card title="Dólar CCL">
-    </Card>
-  </div>
+    <Card title="Dólar Oficial" idCompra="dolar-oficial-compra" idVenta="dolar-oficial-venta" />
+    <Card title="Dólar Blue" idCompra="dolar-blue-compra" idVenta="dolar-blue-venta" />
+    <Card title="Dólar MEP" idCompra="dolar-mep-compra" idVenta="dolar-mep-venta" />
+    <Card title="Dólar Tarjeta" idCompra="dolar-tarjeta-compra" idVenta="dolar-tarjeta-venta" />
+    <Card title="Dólar Cripto" idCompra="dolar-cripto-compra" idVenta="dolar-cripto-venta" />
+    <Card title="Dólar Mayorista" idCompra="dolar-mayorista-compra" idVenta="dolar-mayorista-venta" />
+    <Card title="Dólar CCL" idCompra="dolar-ccl-compra" idVenta="dolar-ccl-venta" />
 </main>

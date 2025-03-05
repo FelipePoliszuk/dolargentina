@@ -1,0 +1,30 @@
+
+<script>
+
+async function obtenerCotizaciones() {
+    try {
+        const respuesta = await fetch("https://dolarapi.com/v1/dolares");
+        const datos = await respuesta.json();
+
+        const tipos = ['oficial', 'blue', 'mep', 'ccl', 'mayorista', 'cripto', 'tarjeta'];
+
+        tipos.forEach((tipo, index) => {
+            const compraElement = document.getElementById(`dolar-${tipo}-compra`);
+            const ventaElement = document.getElementById(`dolar-${tipo}-venta`);
+            
+            if (compraElement && ventaElement && datos[index]) {
+                compraElement.innerText = `$ ${datos[index].compra}`;
+                ventaElement.innerText = `$ ${datos[index].venta}`;
+            }
+        });
+        
+        document.getElementById("fecha-actualizacion").innerText = new Date().toLocaleString();
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+    }
+}
+
+obtenerCotizaciones();
+setInterval(obtenerCotizaciones, 60000); // Actualiza cada 60 segundos
+
+</script>

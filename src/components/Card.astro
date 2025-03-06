@@ -7,7 +7,7 @@ const { title, idCompra, idVenta } = Astro.props;
     <div class="mt-4 grid grid-cols-2 gap-4">
       <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
         <div class="flex items-center gap-1 font-medium text-gray-500">
-          <img class="w-5" src="/public/arrow-up.svg" alt="">
+          <img class="w-5" src="/arrow-up.svg" alt="">
           <span>Compra</span>
         </div>
         <div id={idCompra} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>
@@ -15,7 +15,7 @@ const { title, idCompra, idVenta } = Astro.props;
       
       <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
         <div class="flex items-center gap-1 font-medium text-gray-500">
-          <img class="w-5" src="/public/arrow-down.svg" alt="">
+          <img class="w-5" src="/arrow-down.svg" alt="">
           <span>Venta</span>
         </div>
         <div id={idVenta} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>

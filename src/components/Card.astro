@@ -2,23 +2,23 @@
 const { title, idCompra, idVenta } = Astro.props;
 ---
 
-<div class="rounded-[12px] border-2 bg-green-50 border-green-200 p-6 shadow-sm transition-transform hover:scale-[1.04]">
+<div class="rounded-[12px] border-2 bg-green-50 border-green-200 p-4 shadow-sm transition-transform hover:scale-[1.04] focus:scale-[1.04]">
     <h2 class="text-xl font-bold text-green-700">{title}</h2>
     <div class="mt-4 grid grid-cols-2 gap-4">
-      <div class="rounded-md bg-white p-4 shadow-lg">
-        <div class="flex items-center gap-1 text-sm font-medium text-gray-500">
+      <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
+        <div class="flex items-center gap-1 font-medium text-gray-500">
           <img class="w-5" src="/src/assets/arrow-up.svg" alt="">
           <span>Compra</span>
         </div>
-        <div id={idCompra} class="text-black mt-2 lg:text-2xl text-xl font-bold">$ --</div>
+        <div id={idCompra} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>
       </div>
       
-      <div class="rounded-md bg-white p-4 shadow-lg">
-        <div class="flex items-center gap-1 text-sm font-medium text-gray-500">
+      <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
+        <div class="flex items-center gap-1 font-medium text-gray-500">
           <img class="w-5" src="/src/assets/arrow-down.svg" alt="">
           <span>Venta</span>
         </div>
-        <div id={idVenta} class="text-black mt-2 lg:text-2xl text-xl font-bold">$ --</div>
+        <div id={idVenta} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>
       </div>
     </div>
   </div>

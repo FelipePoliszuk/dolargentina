@@ -5,13 +5,75 @@ import DolarAPI from "../DolarAPI.astro"
 
 <DolarAPI/>
 
-<main class="container mx-auto px-4 py-8 flex-1 flex-col" >
-  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" id="exchange-rates-container" >
-    <Card title="Dólar Oficial" idCompra="dolar-oficial-compra" idVenta="dolar-oficial-venta" />
-    <Card title="Dólar Blue" idCompra="dolar-blue-compra" idVenta="dolar-blue-venta" />
-    <Card title="Dólar MEP" idCompra="dolar-mep-compra" idVenta="dolar-mep-venta" />
-    <Card title="Dólar Tarjeta" idCompra="dolar-tarjeta-compra" idVenta="dolar-tarjeta-venta" />
-    <Card title="Dólar Cripto" idCompra="dolar-cripto-compra" idVenta="dolar-cripto-venta" />
-    <Card title="Dólar Mayorista" idCompra="dolar-mayorista-compra" idVenta="dolar-mayorista-venta" />
-    <Card title="Dólar CCL" idCompra="dolar-ccl-compra" idVenta="dolar-ccl-venta" />
+<main class="container mx-auto px-4 py-8">
+  <div class="mb-6">
+    <div class="inline-flex rounded-full gap-2">
+      <button id="cotizaciones-toggle" class="shadow-lg px-4 py-4 text-sm font-medium bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
+        Cotizaciones
+      </button>
+      <button id="others-toggle" class="shadow-lg px-4 py-4 text-sm font-medium bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
+        Otras cotizaciones
+      </button>
+      <button id="calculator-toggle" class="shadow-lg px-4 py-4 text-sm font-medium bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
+        Calculadora de divisas
+      </button>
+    </div>
+  </div>
+  
+  <!-- vista cotizaciones -->
+  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Card title="Dólar Oficial" idCompra="dolar-oficial-compra" idVenta="dolar-oficial-venta" />
+      <Card title="Dólar Blue" idCompra="dolar-blue-compra" idVenta="dolar-blue-venta" />
+      <Card title="Dólar MEP" idCompra="dolar-mep-compra" idVenta="dolar-mep-venta" />
+      <Card title="Dólar Tarjeta" idCompra="dolar-tarjeta-compra" idVenta="dolar-tarjeta-venta" />
+      <Card title="Dólar Cripto" idCompra="dolar-cripto-compra" idVenta="dolar-cripto-venta" />
+      <Card title="Dólar Mayorista" idCompra="dolar-mayorista-compra" idVenta="dolar-mayorista-venta" />
+      <Card title="Dólar CCL" idCompra="dolar-ccl-compra" idVenta="dolar-ccl-venta" />
+    </div>  
+  </div>
+
+  <!-- vista otras -->
+  <div id="others-tab" class="mx-auto px-4 py-8 flex-1 flex-col hidden">
+    <p>OTRAS COTIZACIONES</p>
+  </div>
+
+  <!-- calculadora  -->
+  <div id="calculator-tab" class="mx-auto px-4 py-8 flex-1 flex-col hidden">
+    <p>CALCULADORA</p>
+  </div>
 </main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    setupTabsToggle();
+  });
+
+  function setupTabsToggle() {
+    const dolarToggle = document.getElementById("cotizaciones-toggle");
+    const otherToggle = document.getElementById("others-toggle");
+    const calculatorToggle = document.getElementById("calculator-toggle");
+
+    const dolarTab = document.getElementById("dolar-tab");
+    const otherTab = document.getElementById("others-tab");
+    const calculatorTab = document.getElementById("calculator-tab");
+
+    dolarToggle.addEventListener("click", () => {
+      dolarTab.classList.remove("hidden");
+      otherTab.classList.add("hidden");
+      calculatorTab.classList.add("hidden");
+    });
+
+    otherToggle.addEventListener("click", () => {
+      dolarTab.classList.add("hidden");
+      otherTab.classList.remove("hidden");
+      calculatorTab.classList.add("hidden");
+    });
+
+    calculatorToggle.addEventListener("click", () => {
+      dolarTab.classList.add("hidden");
+      otherTab.classList.add("hidden");
+      calculatorTab.classList.remove("hidden");
+    });
+  }
+</script>

@@ -26,6 +26,7 @@
 
   body {
     visibility: hidden;
+    /* overflow: hidden; */
   }
   
   html.loaded body {

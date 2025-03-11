@@ -2,23 +2,25 @@
 const { title, idCompra, idVenta } = Astro.props;
 ---
 
-<div class="rounded-[12px] border-2 bg-green-50 border-green-200 p-4 shadow-sm transition-transform hover:scale-[1.04] focus:scale-[1.04]">
-    <h2 class="text-xl font-bold text-green-700">{title}</h2>
-    <div class="mt-4 grid grid-cols-2 gap-4">
-      <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
+<div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm transition-transform hover:scale-[1.04] focus:scale-[1.04]">
+    <div class="bg-white dark:bg-gray-600 shadow-xs p-4 rounded-t-xl">
+      <h2 class="text-xl font-bold text-green-">{title}</h2>
+    </div>
+    <div class="mt-4 grid grid-cols-2 gap-4 p-4">
+      <div class="rounded-md dark:bg-gray-600 bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-xs">
         <div class="flex items-center gap-1 font-medium text-gray-500">
           <img class="w-5" src="/arrow-up.svg" alt="">
-          <span>Compra</span>
+          <span class="dark:text-gray-300">Compra</span>
         </div>
-        <div id={idCompra} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>
+        <div id={idCompra} class="dolar-valor mt-2 lg:text-2xl text-xl font-bold"></div>
       </div>
       
-      <div class="rounded-md bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-lg">
+      <div class="rounded-md dark:bg-gray-600 bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-xs">
         <div class="flex items-center gap-1 font-medium text-gray-500">
           <img class="w-5" src="/arrow-down.svg" alt="">
-          <span>Venta</span>
+          <span class="dark:text-gray-300">Venta</span>
         </div>
-        <div id={idVenta} class="dolar-valor text-black mt-2 lg:text-2xl text-xl font-bold"></div>
+        <div id={idVenta} class="dolar-valor mt-2 lg:text-2xl text-xl font-bold"></div>
       </div>
     </div>
   </div>

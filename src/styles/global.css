@@ -1,22 +1,40 @@
-@import  "tailwindcss";
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-    font-family: 'Onest Variable', sans-serif;
+@layer base {
+  :root {
+    font-family: "Onest Variable", sans-serif;
     color-scheme: light dark;
   }
 
-  body{
-    background: #d4d6d6;
-}
-
-.filter-white {
-  filter: brightness(0) invert(1);
-}
-
-/* .dolar-valor {
-  color: #000000;
-  @media screen and (max-width: 1024px) {
-    font-size: 1.1rem;
-    
+  html {
+    @apply text-gray-900;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   }
-} */
+
+  html.dark {
+    @apply text-white;
+  }
+
+  img.svg-invert {
+    filter: invert(1);
+  }
+
+  html.dark img.svg-invert {
+    filter: invert(0);
+  }
+
+  body {
+    visibility: hidden;
+  }
+  
+  html.loaded body {
+    visibility: visible;
+  }
+
+  
+
+
+
+  
+}

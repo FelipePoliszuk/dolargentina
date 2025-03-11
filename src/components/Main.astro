@@ -34,8 +34,14 @@ import DolarAPI from "../DolarAPI.astro"
   </div>
 
   <!-- vista otras -->
-  <div id="others-tab" class="container mx-auto px-4 py-8 flex-1 flex-col hidden">
-    <p>OTRAS COTIZACIONES</p>
+  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Card title="Dólar Oficial" idCompra="Dolar-compra" idVenta="Dolar-venta" />
+      <Card title="Euro" idCompra="Euro-compra" idVenta="Euro-venta" />
+      <Card title="Real Brasileño" idCompra="Real-Brasileño-compra" idVenta="Real-Brasileño-venta" />
+      <Card title="Peso Chileno" idCompra="Peso-Chileno-compra" idVenta="Peso-Chileno-venta" />
+      <Card title="Peso Uruguayo" idCompra="Peso-Uruguayo-compra" idVenta="Peso-Uruguayo-venta" />
+    </div>  
   </div>
 
   <!-- calculadora  -->

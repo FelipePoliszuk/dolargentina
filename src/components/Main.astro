@@ -5,7 +5,7 @@ import DolarAPI from "../DolarAPI.astro"
 
 <DolarAPI/>
 
-<main class="container mx-auto py-6">
+<main class="container mx-auto py-6 flex-1">
   <div>
     <div class="inline-flex rounded-full gap-4 mx-4">
       <button id="cotizaciones-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
@@ -21,7 +21,7 @@ import DolarAPI from "../DolarAPI.astro"
   </div>
   
   <!-- vista cotizaciones -->
-  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col">
+  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col ">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <Card title="Dólar Oficial" idCompra="dolar-oficial-compra" idVenta="dolar-oficial-venta" />
       <Card title="Dólar Blue" idCompra="dolar-blue-compra" idVenta="dolar-blue-venta" />
@@ -34,9 +34,8 @@ import DolarAPI from "../DolarAPI.astro"
   </div>
 
   <!-- vista otras -->
-  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col">
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <Card title="Dólar Oficial" idCompra="Dolar-compra" idVenta="Dolar-venta" />
+  <div id="others-tab" class="container mx-auto px-4 py-8 flex-1 flex-col hidden">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 ">
       <Card title="Euro" idCompra="Euro-compra" idVenta="Euro-venta" />
       <Card title="Real Brasileño" idCompra="Real-Brasileño-compra" idVenta="Real-Brasileño-venta" />
       <Card title="Peso Chileno" idCompra="Peso-Chileno-compra" idVenta="Peso-Chileno-venta" />

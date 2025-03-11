@@ -10,6 +10,10 @@
   html {
     @apply text-gray-900;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   html.dark {
@@ -27,6 +31,7 @@
   body {
     visibility: hidden;
     /* overflow: hidden; */
+    
   }
   
   html.loaded body {

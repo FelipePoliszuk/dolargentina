@@ -1,58 +1,63 @@
 <script>
-async function obtenerCotizaciones() {
-  try {
-    // Realizar ambas peticiones en paralelo
-    const [respuestaDolares, respuestaMonedas] = await Promise.all([
-      fetch("https://dolarapi.com/v1/dolares"),
-      fetch("https://dolarapi.com/v1/cotizaciones"),
-    ]);
+  async function obtenerCotizaciones() {
+    try {
+      // Realizar ambas peticiones en paralelo
+      const [respuestaDolares, respuestaMonedas] = await Promise.all([
+        fetch("https://dolarapi.com/v1/dolares"),
+        fetch("https://dolarapi.com/v1/cotizaciones"),
+      ]);
 
-    const datosDolares = await respuestaDolares.json();
-    const datosMonedas = await respuestaMonedas.json();
+      const datosDolares = await respuestaDolares.json();
+      const datosMonedas = await respuestaMonedas.json();
 
-    // Mapeo de tipos de dólar
-    const tiposDolar = [
-      "oficial",
-      "blue",
-      "mep",
-      "ccl",
-      "mayorista",
-      "cripto",
-      "tarjeta",
-    ];
+      // Mapeo de tipos de dólar
+      const tiposDolar = [
+        "oficial",
+        "blue",
+        "mep",
+        "ccl",
+        "mayorista",
+        "cripto",
+        "tarjeta",
+      ];
 
-    tiposDolar.forEach((tipo, index) => {
-      const compraElement = document.getElementById(`dolar-${tipo}-compra`);
-      const ventaElement = document.getElementById(`dolar-${tipo}-venta`);
+      tiposDolar.forEach((tipo, index) => {
+        const compraElement = document.getElementById(`dolar-${tipo}-compra`);
+        const ventaElement = document.getElementById(`dolar-${tipo}-venta`);
 
-      if (compraElement && ventaElement && datosDolares[index]) {
-        compraElement.innerText = `$ ${datosDolares[index].compra}`;
-        ventaElement.innerText = `$ ${datosDolares[index].venta}`;
-      }
-    });
+        if (compraElement && ventaElement && datosDolares[index]) {
+          compraElement.innerText = `$ ${parseFloat(datosDolares[index].compra).toFixed(2)}`;
+          ventaElement.innerText = `$ ${parseFloat(datosDolares[index].venta).toFixed(2)}`;
+        }
+      });
 
-    // Mapeo de otras monedas (ejemplo: Euro, Real, etc.)
-    const tiposMonedas = ["Dolar", "Euro", "Real-Brasileño", "Peso-Chileno", "Peso-Uruguayo"];
+      // Mapeo de otras monedas (ejemplo: Euro, Real, etc.)
+      const tiposMonedas = [
+        "Dolar",
+        "Euro",
+        "Real-Brasileño",
+        "Peso-Chileno",
+        "Peso-Uruguayo",
+      ];
 
-    tiposMonedas.forEach((tipo, index) => {
-      const compraElement = document.getElementById(`${tipo}-compra`);
-      const ventaElement = document.getElementById(`${tipo}-venta`);
+      tiposMonedas.forEach((tipo, index) => {
+        const compraElement = document.getElementById(`${tipo}-compra`);
+        const ventaElement = document.getElementById(`${tipo}-venta`);
 
-      if (compraElement && ventaElement && datosMonedas[index]) {
-        compraElement.innerText = `$ ${datosMonedas[index].compra}`;
-        ventaElement.innerText = `$ ${datosMonedas[index].venta}`;
-      }
-    });
+        if (compraElement && ventaElement && datosMonedas[index]) {
+          compraElement.innerText = `$ ${parseFloat(datosMonedas[index].compra).toFixed(2)}`;
+          ventaElement.innerText = `$ ${parseFloat(datosMonedas[index].venta).toFixed(2)}`;
+        }
+      });
 
-    document.getElementById("fecha-actualizacion").innerText =
-      new Date().toLocaleString();
-  } catch (error) {
-    console.error("Error al obtener datos:", error);
+      document.getElementById("fecha-actualizacion").innerText =
+        new Date().toLocaleString();
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
   }
-}
 
-// Llamar a la función al cargar y actualizar cada 60 segundos
-obtenerCotizaciones();
-setInterval(obtenerCotizaciones, 60000);
-
+  // Llamar a la función al cargar y actualizar cada 60 segundos
+  obtenerCotizaciones();
+  setInterval(obtenerCotizaciones, 60000);
 </script>

@@ -1,56 +1,134 @@
 ---
-import Card from "./Card.astro"
-import DolarAPI from "../DolarAPI.astro"
+import Card from "./Card.astro";
+import DolarAPI from "../DolarAPI.astro";
 ---
 
-<DolarAPI/>
+<DolarAPI />
 
-<main class="container mx-auto py-6 flex-1">
-  <div>
-    <div class="inline-flex rounded-full gap-4 mx-4">
-      <button id="cotizaciones-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
-        Cotizaciones
-      </button>
-      <button id="others-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
-        Otras cotizaciones
-      </button>
-      <button id="calculator-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">
-        Calculadora de divisas
-      </button>
+<main class="container mx-auto pt-6 flex-1 ">
+  <!-- Botones de navegación -->
+  <div class="inline-flex rounded-full gap-4 mx-4">
+    <button id="cotizaciones-toggle" class="btn-tab">Cotizaciones</button>
+    <button id="others-toggle" class="btn-tab">Otras cotizaciones</button>
+    <button id="calculator-toggle" class="btn-tab"
+      >Calculadora de divisas</button
+    >
+  </div>
+
+  <!-- Vista Cotizaciones -->
+  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 ">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <Card title="Dólar Oficial" tipo="oficial" moneda="dolar" />
+      <Card title="Dólar Blue" tipo="blue" moneda="dolar" />
+      <Card title="Dólar MEP" tipo="bolsa" moneda="dolar" />
+      <Card title="Dólar Tarjeta" tipo="tarjeta" moneda="dolar" />
+      <Card title="Dólar Cripto" tipo="cripto" moneda="dolar" />
+      <Card title="Dólar Mayorista" tipo="mayorista" moneda="dolar" />
+      <Card title="Dólar CCL" tipo="contadoconliqui" moneda="dolar" />
     </div>
   </div>
-  
-  <!-- vista cotizaciones -->
-  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 flex-col ">
+
+  <!-- Vista Otras Cotizaciones -->
+  <div id="others-tab" class="container mx-auto px-4 py-8 flex-1 hidden">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <Card title="Dólar Oficial" idCompra="dolar-oficial-compra" idVenta="dolar-oficial-venta" />
-      <Card title="Dólar Blue" idCompra="dolar-blue-compra" idVenta="dolar-blue-venta" />
-      <Card title="Dólar MEP" idCompra="dolar-mep-compra" idVenta="dolar-mep-venta" />
-      <Card title="Dólar Tarjeta" idCompra="dolar-tarjeta-compra" idVenta="dolar-tarjeta-venta" />
-      <Card title="Dólar Cripto" idCompra="dolar-cripto-compra" idVenta="dolar-cripto-venta" />
-      <Card title="Dólar Mayorista" idCompra="dolar-mayorista-compra" idVenta="dolar-mayorista-venta" />
-      <Card title="Dólar CCL" idCompra="dolar-ccl-compra" idVenta="dolar-ccl-venta" />
-    </div>  
+      <Card title="Euro" tipo="Euro" moneda="moneda" />
+      <Card title="Real Brasileño" tipo="Real Brasileño" moneda="moneda" />
+      <Card title="Peso Uruguayo" tipo="Peso Uruguayo" moneda="moneda" />
+      <Card title="Peso Chileno" tipo="Peso Chileno" moneda="moneda" />
+    </div>
   </div>
 
-  <!-- vista otras -->
-  <div id="others-tab" class="container mx-auto px-4 py-8 flex-1 flex-col hidden">
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 ">
-      <Card title="Euro" idCompra="Euro-compra" idVenta="Euro-venta" />
-      <Card title="Real Brasileño" idCompra="Real-Brasileño-compra" idVenta="Real-Brasileño-venta" />
-      <Card title="Peso Chileno" idCompra="Peso-Chileno-compra" idVenta="Peso-Chileno-venta" />
-      <Card title="Peso Uruguayo" idCompra="Peso-Uruguayo-compra" idVenta="Peso-Uruguayo-venta" />
-    </div>  
-  </div>
+  <!-- Calculadora de Divisas -->
+  <div id="calculator-tab" class="container mx-auto px-4 py-8 flex-1 hidden">
+    <div class="lg:px-10 px-4 py-8 rounded-2xl dark:bg-gray-800 bg-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Columna izquierda - Calculadora -->
+        <div class="lg:p-4 px-2 space-y-6">
+          <label class="block">Cantidad:</label>
+          <div class="relative">
+            <span
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              >$</span
+            >
+            <input type="number" class="input-field w-full px-8 py-2 border border-gray-800 dark:border-gray-400 rounded-lg" value="1" />
+          </div>
 
-  <!-- calculadora  -->
-  <div id="calculator-tab" class="container mx-auto px-4 py-8 flex-1 flex-col hidden">
-    <p>CALCULADORA</p>
+          <label class="block">De:</label>
+          <select id="moneda-origen" class="select-field p-2 border border-gray-800 dark:border-gray-400 rounded-lg w-full dark:bg-gray-800 bg-gray-100">
+            <option value="usd">Dólar Oficial</option>
+            <option value="eur">Euro</option>
+            <option value="brl">Real Brasileño</option>
+            <option value="uyu">Peso Uruguayo</option>
+            <option value="clp">Peso Chileno</option>
+            <option value="ars">Peso Argentino</option>
+          </select>
+
+          <label class="block">A:</label>
+          <select id="moneda-destino" class="select-field p-2 border border-gray-800 dark:border-gray-400 rounded-lg w-full dark:bg-gray-800 bg-gray-100">
+            <option value="eur">Euro</option>
+            <option value="brl">Real Brasileño</option>
+            <option value="uyu">Peso Uruguayo</option>
+            <option value="clp">Peso Chileno</option>
+            <option value="usd">Dólar Oficial</option>
+            <option value="ars">Peso Argentino</option>
+          </select>
+
+          <div class="pt-4">
+            <span>Equivale a:</span>
+            <div class="flex items-center justify-between ">
+              <span class="text-4xl font-bold resultado"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna derecha - Lista de cotizaciones -->
+        <div class="lg:p-4 text-[16px]">
+          <!-- Encabezado -->
+          <div class="grid grid-cols-3 lg:gap-x-32 text-left font-semibold mb-2">
+            <div class="lg:pl-4">Cotizaciones</div>
+            <div class="pl-12">Compra</div>
+            <div class="pl-12">Venta</div>
+          </div>
+        
+          <!-- Cuerpo -->
+          <div class="grid grid-cols-3 lg:gap-x-32 text-left ">
+            <!-- Dólar Oficial -->
+            <div class="lg:pl-4 my-2">Dólar Oficial</div>
+            <div class="lg:pl-12 pl-4 valor-compra" data-moneda="dolar" data-tipo="oficial"></div>
+            <div class="lg:pl-12 pl-5 valor-venta" data-moneda="dolar" data-tipo="oficial"></div>
+
+            <!-- Euro -->
+            <div class="lg:pl-4 my-2">Euro</div>
+            <div class="lg:pl-12 pl-4  valor-compra" data-moneda="moneda" data-tipo="Euro"></div>
+            <div class="lg:pl-12 pl-5  valor-venta" data-moneda="moneda" data-tipo="Euro"></div>
+        
+            <!-- Real Brasileño -->
+            <div class="lg:pl-4 my-2">Real Brasileño</div>
+            <div class="lg:pl-12 pl-4  valor-compra" data-moneda="moneda" data-tipo="Real Brasileño"></div>
+            <div class="lg:pl-12 pl-5  valor-venta" data-moneda="moneda" data-tipo="Real Brasileño"></div>
+        
+            <!-- Peso Uruguayo -->
+            <div class="lg:pl-4 my-2">Peso Uruguayo</div>
+            <div class="lg:pl-12 pl-4 valor-compra" data-moneda="moneda" data-tipo="Peso Uruguayo"></div>
+            <div class="lg:pl-12 pl-5 valor-venta" data-moneda="moneda" data-tipo="Peso Uruguayo"></div>
+        
+            <!-- Peso Chileno -->
+            <div class="lg:pl-4 my-2">Peso Chileno</div>
+            <div class="lg:pl-12 pl-4 valor-compra" data-moneda="moneda" data-tipo="Peso Chileno"></div>
+            <div class="lg:pl-12 pl-5 valor-venta" data-moneda="moneda" data-tipo="Peso Chileno"></div>
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
   </div>
 </main>
 
+
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     setupTabsToggle();
   });
 
@@ -63,22 +141,22 @@ import DolarAPI from "../DolarAPI.astro"
     const otherTab = document.getElementById("others-tab");
     const calculatorTab = document.getElementById("calculator-tab");
 
-    dolarToggle.addEventListener("click", () => {
-      dolarTab.classList.remove("hidden");
-      otherTab.classList.add("hidden");
-      calculatorTab.classList.add("hidden");
+    dolarToggle?.addEventListener("click", () => {
+      dolarTab?.classList.remove("hidden");
+      otherTab?.classList.add("hidden");
+      calculatorTab?.classList.add("hidden");
     });
 
-    otherToggle.addEventListener("click", () => {
-      dolarTab.classList.add("hidden");
-      otherTab.classList.remove("hidden");
-      calculatorTab.classList.add("hidden");
+    otherToggle?.addEventListener("click", () => {
+      dolarTab?.classList.add("hidden");
+      otherTab?.classList.remove("hidden");
+      calculatorTab?.classList.add("hidden");
     });
 
-    calculatorToggle.addEventListener("click", () => {
-      dolarTab.classList.add("hidden");
-      otherTab.classList.add("hidden");
-      calculatorTab.classList.remove("hidden");
+    calculatorToggle?.addEventListener("click", () => {
+      dolarTab?.classList.add("hidden");
+      otherTab?.classList.add("hidden");
+      calculatorTab?.classList.remove("hidden");
     });
   }
 </script>

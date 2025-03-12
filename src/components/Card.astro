@@ -1,5 +1,5 @@
 ---
-const { title, idCompra, idVenta } = Astro.props;
+const { title, tipo, moneda = "dolar" } = Astro.props;
 ---
 
 <div class="bg-gray-100 dark:bg-gray-800 rounded-xl shadow-sm transition-transform hover:scale-[1.04] focus:scale-[1.04]">
@@ -12,7 +12,7 @@ const { title, idCompra, idVenta } = Astro.props;
           <img class="w-5" src="/arrow-up.svg" alt="">
           <span class="dark:text-gray-300">Compra</span>
         </div>
-        <div id={idCompra} class="dolar-valor mt-2 lg:text-2xl text-xl font-bold"></div>
+        <div class="valor-compra mt-2 lg:text-2xl text-xl font-bold" data-moneda={moneda} data-tipo={tipo}></div>
       </div>
       
       <div class="rounded-md dark:bg-gray-600 bg-white md:py-4 md:px-4 lg:py-3 lg:px-2 px-2 py-2 shadow-xs">
@@ -20,9 +20,7 @@ const { title, idCompra, idVenta } = Astro.props;
           <img class="w-5" src="/arrow-down.svg" alt="">
           <span class="dark:text-gray-300">Venta</span>
         </div>
-        <div id={idVenta} class="dolar-valor mt-2 lg:text-2xl text-xl font-bold"></div>
+        <div class="valor-venta mt-2 lg:text-2xl text-xl font-bold" data-moneda={moneda} data-tipo={tipo}></div>
       </div>
     </div>
   </div>
-
-  

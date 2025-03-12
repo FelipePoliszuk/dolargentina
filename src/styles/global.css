@@ -31,16 +31,13 @@
   body {
     visibility: hidden;
     /* overflow: hidden; */
-    
   }
-  
+
   html.loaded body {
     visibility: visible;
   }
 
-  
-
-
-
-  
+  .btn-tab {
+    @apply shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-100 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700;
+  }
 }

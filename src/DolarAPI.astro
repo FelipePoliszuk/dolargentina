@@ -1,4 +1,8 @@
 <script>
+  // Variables globales para almacenar los datos de las cotizaciones
+  let datosDolaresGlobal = [];
+  let datosMonedasGlobal = [];
+
   async function obtenerCotizaciones() {
     try {
       // Realizar ambas peticiones en paralelo
@@ -10,54 +14,157 @@
       const datosDolares = await respuestaDolares.json();
       const datosMonedas = await respuestaMonedas.json();
 
-      // Mapeo de tipos de dólar
-      const tiposDolar = [
-        "oficial",
-        "blue",
-        "mep",
-        "ccl",
-        "mayorista",
-        "cripto",
-        "tarjeta",
-      ];
+      // Guardar los datos en variables globales para usarlos en la conversión
+      datosDolaresGlobal = datosDolares;
+      datosMonedasGlobal = datosMonedas;
 
-      tiposDolar.forEach((tipo, index) => {
-        const compraElement = document.getElementById(`dolar-${tipo}-compra`);
-        const ventaElement = document.getElementById(`dolar-${tipo}-venta`);
+      // Actualizar valores de dólares
+      datosDolares.forEach((dolar) => {
+        const compraElements = document.querySelectorAll(
+          `.valor-compra[data-moneda="dolar"][data-tipo="${dolar.casa.toLowerCase()}"]`
+        );
+        const ventaElements = document.querySelectorAll(
+          `.valor-venta[data-moneda="dolar"][data-tipo="${dolar.casa.toLowerCase()}"]`
+        );
 
-        if (compraElement && ventaElement && datosDolares[index]) {
-          compraElement.innerText = `$ ${parseFloat(datosDolares[index].compra).toFixed(2)}`;
-          ventaElement.innerText = `$ ${parseFloat(datosDolares[index].venta).toFixed(2)}`;
-        }
+        compraElements.forEach((el) => {
+          el.innerText = `$ ${parseFloat(dolar.compra).toFixed(2)}`;
+        });
+
+        ventaElements.forEach((el) => {
+          el.innerText = `$ ${parseFloat(dolar.venta).toFixed(2)}`;
+        });
       });
 
-      // Mapeo de otras monedas (ejemplo: Euro, Real, etc.)
-      const tiposMonedas = [
-        "Dolar",
-        "Euro",
-        "Real-Brasileño",
-        "Peso-Chileno",
-        "Peso-Uruguayo",
-      ];
+      // Actualizar valores de otras monedas
+      datosMonedas.forEach((moneda) => {
+        const compraElements = document.querySelectorAll(
+          `.valor-compra[data-moneda="moneda"][data-tipo="${moneda.nombre}"]`
+        );
+        const ventaElements = document.querySelectorAll(
+          `.valor-venta[data-moneda="moneda"][data-tipo="${moneda.nombre}"]`
+        );
 
-      tiposMonedas.forEach((tipo, index) => {
-        const compraElement = document.getElementById(`${tipo}-compra`);
-        const ventaElement = document.getElementById(`${tipo}-venta`);
+        compraElements.forEach((el) => {
+          el.innerText = `$ ${parseFloat(moneda.compra).toFixed(2)}`;
+        });
 
-        if (compraElement && ventaElement && datosMonedas[index]) {
-          compraElement.innerText = `$ ${parseFloat(datosMonedas[index].compra).toFixed(2)}`;
-          ventaElement.innerText = `$ ${parseFloat(datosMonedas[index].venta).toFixed(2)}`;
-        }
+        ventaElements.forEach((el) => {
+          el.innerText = `$ ${parseFloat(moneda.venta).toFixed(2)}`;
+        });
       });
 
       document.getElementById("fecha-actualizacion").innerText =
         new Date().toLocaleString();
+
+      // Actualizar la conversión inicial
+      realizarConversion();
     } catch (error) {
       console.error("Error al obtener datos:", error);
     }
   }
 
+  // Función para realizar la conversión entre monedas
+  function realizarConversion() {
+    const cantidad =
+      parseFloat(document.querySelector(".input-field").value) || 0;
+    const monedaOrigen = document.getElementById("moneda-origen").value;
+    const monedaDestino = document.getElementById("moneda-destino").value;
+    const resultadoElement = document.querySelector(".resultado");
+
+    // Si no hay datos, no podemos convertir
+    if (!datosDolaresGlobal.length || !datosMonedasGlobal.length) {
+      resultadoElement.innerText = "Cargando datos...";
+      return;
+    }
+
+    // Obtener los valores de venta de las monedas
+    const valoresVenta = obtenerValoresVenta();
+
+    // Si no tenemos los valores de venta, no podemos convertir
+    if (!valoresVenta[monedaOrigen] || !valoresVenta[monedaDestino]) {
+      resultadoElement.innerText = "Conversión no disponible";
+      return;
+    }
+
+    // Calcular la tasa de cambio: valor venta moneda origen / valor venta moneda destino
+    const tasaDeCambio =
+      valoresVenta[monedaOrigen] / valoresVenta[monedaDestino];
+
+    // Realizar la conversión directa
+    const resultado = cantidad * tasaDeCambio;
+
+    // Mostrar el resultado formateado
+    const simbolo = obtenerSimbolo(monedaDestino);
+    resultadoElement.innerText = `${simbolo} ${resultado.toFixed(4)}`;
+  }
+
+  // Función para obtener los valores de venta de todas las monedas
+  function obtenerValoresVenta() {
+    const valores = {
+      // Valor base para el peso argentino
+      ars: 1,
+    };
+
+    // Obtener valor de venta del dólar oficial
+    const dolarOficial = datosDolaresGlobal.find(
+      (d) => d.casa && d.casa.toLowerCase() === "oficial"
+    );
+    if (dolarOficial) {
+      valores.usd = parseFloat(dolarOficial.venta);
+    }
+
+    // Obtener valores de venta de otras monedas
+    datosMonedasGlobal.forEach((moneda) => {
+      switch (moneda.nombre) {
+        case "Euro":
+          valores.eur = parseFloat(moneda.venta);
+          break;
+        case "Real Brasileño":
+          valores.brl = parseFloat(moneda.venta);
+          break;
+        case "Peso Uruguayo":
+          valores.uyu = parseFloat(moneda.venta);
+          break;
+        case "Peso Chileno":
+          valores.clp = parseFloat(moneda.venta);
+          break;
+      }
+    });
+
+    return valores;
+  }
+
+  // Función para obtener el símbolo de la moneda
+  function obtenerSimbolo(codigoMoneda) {
+    const simbolos = {
+      usd: "$",
+      eur: "€",
+      brl: "R$",
+      uyu: "$U",
+      clp: "CLP$",
+      ars: "$",
+    };
+
+    return simbolos[codigoMoneda] || "";
+  }
+
+  // Configurar event listeners para la calculadora
+  function configurarCalculadora() {
+    const inputCantidad = document.querySelector(".input-field");
+    const selectOrigen = document.getElementById("moneda-origen");
+    const selectDestino = document.getElementById("moneda-destino");
+
+    // Actualizar la conversión cuando cambie cualquier valor
+    inputCantidad.addEventListener("input", realizarConversion);
+    selectOrigen.addEventListener("change", realizarConversion);
+    selectDestino.addEventListener("change", realizarConversion);
+  }
+
   // Llamar a la función al cargar y actualizar cada 60 segundos
-  obtenerCotizaciones();
-  setInterval(obtenerCotizaciones, 60000);
+  document.addEventListener("DOMContentLoaded", () => {
+    obtenerCotizaciones();
+    configurarCalculadora();
+    setInterval(obtenerCotizaciones, 60000);
+  });
 </script>

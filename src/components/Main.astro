@@ -26,7 +26,7 @@ import DolarAPI from "../DolarAPI.astro";
   </div>
 
   <!-- Vista Cotizaciones -->
-  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1">
+  <div id="dolar-tab" class="container mx-auto px-4 py-8 flex-1 hidden">
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <Card title="Dólar Oficial" tipo="oficial" moneda="dolar" />
       <Card title="Dólar Blue" tipo="blue" moneda="dolar" />
@@ -49,11 +49,11 @@ import DolarAPI from "../DolarAPI.astro";
   </div>
 
   <!-- Calculadora de Divisas -->
-  <div id="calculator-tab" class="container mx-auto px-4 py-8 flex-1 hidden">
+  <div id="calculator-tab" class="container mx-auto px-4 py-8 flex-1 ">
     <div class="lg:px-10 px-4 py-8 rounded-2xl dark:bg-gray-800 bg-white">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Columna izquierda - Calculadora -->
-        <div class="lg:p-4 px-2 space-y-6">
+        <div class="py-3 px-5 space-y-6">
           <label class="block">Cantidad:</label>
           <div class="relative">
             <span
@@ -101,93 +101,77 @@ import DolarAPI from "../DolarAPI.astro";
           </div>
         </div>
 
-        <!-- Columna derecha - Lista de cotizaciones -->
-        <div class="lg:p-4 text-[16px]">
-          <!-- Encabezado -->
-          <div
-            class="grid grid-cols-3 lg:gap-x-32 text-left font-semibold mb-2"
-          >
-            <div class="lg:pl-4">Cotizaciones</div>
-            <div class="pl-12">Compra</div>
-            <div class="pl-12">Venta</div>
-          </div>
-
-          <!-- Cuerpo -->
-          <div class="grid grid-cols-3 lg:gap-x-32 text-left">
-            <!-- Dólar Oficial -->
-            <div class="lg:pl-4 my-2">Dólar Oficial</div>
-            <div
-              class="lg:pl-12 pl-4 valor-compra"
-              data-moneda="dolar"
-              data-tipo="oficial"
-            >
-            </div>
-            <div
-              class="lg:pl-12 pl-5 valor-venta"
-              data-moneda="dolar"
-              data-tipo="oficial"
-            >
-            </div>
-
-            <!-- Euro -->
-            <div class="lg:pl-4 my-2">Euro</div>
-            <div
-              class="lg:pl-12 pl-4 valor-compra"
-              data-moneda="moneda"
-              data-tipo="Euro"
-            >
-            </div>
-            <div
-              class="lg:pl-12 pl-5 valor-venta"
-              data-moneda="moneda"
-              data-tipo="Euro"
-            >
-            </div>
-
-            <!-- Real Brasileño -->
-            <div class="lg:pl-4 my-2">Real Brasileño</div>
-            <div
-              class="lg:pl-12 pl-4 valor-compra"
-              data-moneda="moneda"
-              data-tipo="Real Brasileño"
-            >
-            </div>
-            <div
-              class="lg:pl-12 pl-5 valor-venta"
-              data-moneda="moneda"
-              data-tipo="Real Brasileño"
-            >
-            </div>
-
-            <!-- Peso Uruguayo -->
-            <div class="lg:pl-4 my-2">Peso Uruguayo</div>
-            <div
-              class="lg:pl-12 pl-4 valor-compra"
-              data-moneda="moneda"
-              data-tipo="Peso Uruguayo"
-            >
-            </div>
-            <div
-              class="lg:pl-12 pl-5 valor-venta"
-              data-moneda="moneda"
-              data-tipo="Peso Uruguayo"
-            >
-            </div>
-
-            <!-- Peso Chileno -->
-            <div class="lg:pl-4 my-2">Peso Chileno</div>
-            <div
-              class="lg:pl-12 pl-4 valor-compra"
-              data-moneda="moneda"
-              data-tipo="Peso Chileno"
-            >
-            </div>
-            <div
-              class="lg:pl-12 pl-5 valor-venta"
-              data-moneda="moneda"
-              data-tipo="Peso Chileno"
-            >
-            </div>
+        <div class="w-full">
+          <!-- Tabla de cotizaciones -->
+          <table class="w-full min-w-container ">
+            <!-- Encabezado -->
+            <thead>
+              <tr class="border-b dark:border-gray-700">
+                <th class="py-3 text-left font-semibold">Cotizaciones</th>
+                <th class="py-3 text-right font-semibold">Compra</th>
+                <th class="py-3 text-right font-semibold">Venta</th>
+              </tr>
+            </thead>
+        
+            <!-- Cuerpo -->
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <!-- Dólar Oficial -->
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <td class="py-3 text-left">Dólar Oficial</td>
+                <td class="py-3 text-right">
+                  <div class="valor-compra" data-moneda="dolar" data-tipo="oficial"></div>
+                </td>
+                <td class="py-3 text-right">
+                  <div class="valor-venta" data-moneda="dolar" data-tipo="oficial"></div>
+                </td>
+              </tr>
+        
+              <!-- Euro -->
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <td class="py-3 text-left">Euro</td>
+                <td class="py-3 text-right">
+                  <div class="valor-compra" data-moneda="moneda" data-tipo="Euro"></div>
+                </td>
+                <td class="py-3 text-right">
+                  <div class="valor-venta" data-moneda="moneda" data-tipo="Euro"></div>
+                </td>
+              </tr>
+        
+              <!-- Real Brasileño -->
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <td class="py-3 text-left">Real Brasileño</td>
+                <td class="py-3 text-right">
+                  <div class="valor-compra" data-moneda="moneda" data-tipo="Real Brasileño"></div>
+                </td>
+                <td class="py-3 text-right">
+                  <div class="valor-venta" data-moneda="moneda" data-tipo="Real Brasileño"></div>
+                </td>
+              </tr>
+        
+              <!-- Peso Uruguayo -->
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <td class="py-3 text-left">Peso Uruguayo</td>
+                <td class="py-3 text-right">
+                  <div class="valor-compra" data-moneda="moneda" data-tipo="Peso Uruguayo"></div>
+                </td>
+                <td class="py-3 text-right">
+                  <div class="valor-venta" data-moneda="moneda" data-tipo="Peso Uruguayo"></div>
+                </td>
+              </tr>
+        
+              <!-- Peso Chileno -->
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <td class="py-3 text-left">Peso Chileno</td>
+                <td class="py-3 text-right">
+                  <div class="valor-compra" data-moneda="moneda" data-tipo="Peso Chileno"></div>
+                </td>
+                <td class="py-3 text-right">
+                  <div class="valor-venta" data-moneda="moneda" data-tipo="Peso Chileno"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
           </div>
         </div>
       </div>

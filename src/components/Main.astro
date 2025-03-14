@@ -7,10 +7,20 @@ import DolarAPI from "../DolarAPI.astro";
 
 <main class="container mx-auto pt-6 flex-1">
   <!-- Botones de navegación -->
-  <div class="inline-flex rounded-full gap-4 mx-4">
-    <button id="cotizaciones-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">Cotizaciones</button>
-    <button id="others-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700">Otras cotizaciones</button>
-    <button id="calculator-toggle" class="shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700"
+  <div class="lg:inline-flex rounded-full lg:gap-4 gap-2 mx-4 flex justify-center">
+    <button
+      id="cotizaciones-toggle"
+      class="transition-all duration-200 ease-in-out shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-600 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700"
+      >Cotizaciones</button
+    >
+    <button
+      id="others-toggle"
+      class="transition-all duration-200 ease-in-out shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700"
+      >Otras cotizaciones</button
+    >
+    <button
+      id="calculator-toggle"
+      class="transition-all duration-200 ease-in-out shadow-lg p-1 lg:p-3 text-sm font-medium bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg active:bg-gray-100 dark:active:bg-gray-700"
       >Calculadora de divisas</button
     >
   </div>
@@ -186,75 +196,43 @@ import DolarAPI from "../DolarAPI.astro";
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  setupTabsToggle();
-});
+  document.addEventListener("DOMContentLoaded", function () {
+    setupTabsToggle();
+  });
 
-function setupTabsToggle() {
-  const dolarToggle = document.getElementById("cotizaciones-toggle");
-  const otherToggle = document.getElementById("others-toggle");
-  const calculatorToggle = document.getElementById("calculator-toggle");
+  function setupTabsToggle() {
+    const tabs = {
+      cotizaciones: {
+        button: document.getElementById("cotizaciones-toggle"),
+        content: document.getElementById("dolar-tab"),
+      },
+      others: {
+        button: document.getElementById("others-toggle"),
+        content: document.getElementById("others-tab"),
+      },
+      calculator: {
+        button: document.getElementById("calculator-toggle"),
+        content: document.getElementById("calculator-tab"),
+      },
+    };
 
-  const dolarTab = document.getElementById("dolar-tab");
-  const otherTab = document.getElementById("others-tab");
-  const calculatorTab = document.getElementById("calculator-tab");
+    function resetTabs() {
+      Object.values(tabs).forEach(({ button, content }) => {
+        button?.classList.remove("dark:bg-gray-600", "bg-gray-100");
+        button?.classList.add("dark:bg-gray-800", "bg-white");
+        content?.classList.add("hidden");
+      });
+    }
 
-  function resetButtonStyles() {
-    dolarToggle?.classList.remove("dark:bg-gray-600");
-    otherToggle?.classList.remove("dark:bg-gray-600");
-    calculatorToggle?.classList.remove("dark:bg-gray-600");
-    dolarToggle?.classList.remove("bg-gray-100");
-    otherToggle?.classList.remove("bg-gray-100");
-    calculatorToggle?.classList.remove("bg-gray-100");
+    Object.entries(tabs).forEach(([key, { button, content }]) => {
+      button?.addEventListener("click", () => {
+        resetTabs();
+        // Primero removemos TODAS las clases de fondo previas
+        button.classList.remove("dark:bg-gray-800", "bg-white");
+        // Luego agregamos las nuevas clases de fondo
+        button.classList.add("dark:bg-gray-600", "bg-gray-100");
+        content.classList.remove("hidden");
+      });
+    });
   }
-
-  dolarToggle?.addEventListener("click", () => {
-    dolarTab?.classList.remove("hidden");
-    otherTab?.classList.add("hidden");
-    calculatorTab?.classList.add("hidden");
-    resetButtonStyles();
-    dolarToggle?.classList.remove("dark:bg-gray-800");
-    dolarToggle?.classList.add("dark:bg-gray-600");
-    calculatorToggle?.classList.add("dark:bg-gray-800");
-    otherToggle?.classList.add("dark:bg-gray-800");
-    //
-    dolarToggle?.classList.remove("bg-white");
-    dolarToggle?.classList.add("bg-gray-100");
-    calculatorToggle?.classList.add("bg-white");
-    otherToggle?.classList.add("bg-white");
-  });
-
-  otherToggle?.addEventListener("click", () => {
-    dolarTab?.classList.add("hidden");
-    otherTab?.classList.remove("hidden");
-    calculatorTab?.classList.add("hidden");
-    resetButtonStyles();
-    otherToggle?.classList.remove("dark:bg-gray-800");
-    otherToggle?.classList.add("dark:bg-gray-600");
-    calculatorToggle?.classList.add("dark:bg-gray-800");
-    dolarToggle?.classList.add("dark:bg-gray-800");
-    //
-    otherToggle?.classList.remove("bg-white");
-    otherToggle?.classList.add("bg-gray-100");
-    calculatorToggle?.classList.add("bg-white");
-    dolarToggle?.classList.add("bg-white");
-  });
-
-  calculatorToggle?.addEventListener("click", () => {
-    dolarTab?.classList.add("hidden");
-    otherTab?.classList.add("hidden");
-    calculatorTab?.classList.remove("hidden");
-    resetButtonStyles();
-    calculatorToggle?.classList.remove("dark:bg-gray-800");
-    calculatorToggle?.classList.add("dark:bg-gray-600");
-    otherToggle?.classList.add("dark:bg-gray-800");
-    dolarToggle?.classList.add("dark:bg-gray-800");
-    //
-    calculatorToggle?.classList.remove("bg-white");
-    calculatorToggle?.classList.add("bg-gray-100");
-    otherToggle?.classList.add("bg-white");
-    dolarToggle?.classList.add("bg-white");
-  });
-}
-
 </script>

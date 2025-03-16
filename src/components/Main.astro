@@ -1,6 +1,7 @@
 ---
 import Card from "./Card.astro";
 import DolarAPI from "../DolarAPI.astro";
+import CotizacionRow from "./CotizacionRow.astro";
 ---
 
 <DolarAPI />
@@ -117,110 +118,27 @@ import DolarAPI from "../DolarAPI.astro";
 
             <!-- Cuerpo -->
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-              <!-- Dólar Oficial -->
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="py-3 text-left">Dólar Oficial</td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-compra"
-                    data-moneda="dolar"
-                    data-tipo="oficial"
-                  >
-                  </div>
-                </td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-venta"
-                    data-moneda="dolar"
-                    data-tipo="oficial"
-                  >
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Euro -->
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="py-3 text-left">Euro</td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-compra"
-                    data-moneda="moneda"
-                    data-tipo="Euro"
-                  >
-                  </div>
-                </td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-venta"
-                    data-moneda="moneda"
-                    data-tipo="Euro"
-                  >
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Real Brasileño -->
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="py-3 text-left">Real Brasileño</td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-compra"
-                    data-moneda="moneda"
-                    data-tipo="Real Brasileño"
-                  >
-                  </div>
-                </td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-venta"
-                    data-moneda="moneda"
-                    data-tipo="Real Brasileño"
-                  >
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Peso Uruguayo -->
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="py-3 text-left">Peso Uruguayo</td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-compra"
-                    data-moneda="moneda"
-                    data-tipo="Peso Uruguayo"
-                  >
-                  </div>
-                </td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-venta"
-                    data-moneda="moneda"
-                    data-tipo="Peso Uruguayo"
-                  >
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Peso Chileno -->
-              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td class="py-3 text-left">Peso Chileno</td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-compra"
-                    data-moneda="moneda"
-                    data-tipo="Peso Chileno"
-                  >
-                  </div>
-                </td>
-                <td class="py-3 text-right">
-                  <div
-                    class="valor-venta"
-                    data-moneda="moneda"
-                    data-tipo="Peso Chileno"
-                  >
-                  </div>
-                </td>
-              </tr>
+              <CotizacionRow
+                title="Dólar Oficial"
+                moneda="moneda"
+                tipo="Dólar"
+              />
+              <CotizacionRow title="Euro" moneda="moneda" tipo="Euro" />
+              <CotizacionRow
+                title="Real Brasileño"
+                moneda="moneda"
+                tipo="Real Brasileño"
+              />
+              <CotizacionRow
+                title="Peso Uruguayo"
+                moneda="moneda"
+                tipo="Peso Uruguayo"
+              />
+              <CotizacionRow
+                title="Peso Chileno"
+                moneda="moneda"
+                tipo="Peso Chileno"
+              />
             </tbody>
           </table>
         </div>

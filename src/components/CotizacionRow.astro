@@ -1,0 +1,13 @@
+---
+const { title, moneda, tipo } = Astro.props;
+---
+
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+  <td class="py-3 text-left">{title}</td>
+  <td class="py-3 text-right">
+    <div class="valor-compra" data-moneda={moneda} data-tipo={tipo}></div>
+  </td>
+  <td class="py-3 text-right">
+    <div class="valor-venta" data-moneda={moneda} data-tipo={tipo}></div>
+  </td>
+</tr>

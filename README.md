@@ -9,7 +9,7 @@ Aplicación web para consultar cotizaciones del dólar y otras monedas en tiempo
 - Diseño responsivo y moderno
 - Soporte para modo oscuro
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 - **Astro** - Framework web
 - **Tailwind CSS** - Estilos
